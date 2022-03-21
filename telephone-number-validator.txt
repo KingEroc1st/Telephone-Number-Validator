@@ -1,0 +1,56 @@
+function telephoneCheck(str) {
+
+//ELIMINATE SPACES 
+let nums = str.replace(/\s/g,"");
+
+
+// FILTER FOR LETTERS
+if(nums.search(/[a-z]/gi)>=0){
+return false; 
+}
+// CHECK DIGIT AMOUNT
+else if(((nums.match(/[0-9]/g).length===10) || (nums.match(/[0-9]/g).length===11) && nums[0]==="1")===false){
+return false; 
+}
+// CHECK FOR UNWANTED PUNCTUATION
+else if((badpun(nums))===true){
+ return false;
+}
+else if((nums.includes("(") && !nums.includes(")") )|| (!nums.includes("(") && nums.includes(")") )){
+ return false; 
+}
+else{
+ return true;
+}
+
+function badpun(nums){
+  if (nums.search(/\D/g)>=0 && (nums[nums.length-5]) === "-" && (nums[nums.length-9]) === "-"){
+    return false
+  }
+  else if(nums.search(/\(/g)>=0 && (nums[nums.length-5]) === "-" && (nums[nums.length-9]) === ")" && (nums[nums.length-13]) === "("){
+    return false
+  }
+  else if(nums.search(/\D/g)<0){
+    return false
+  }
+  else if(nums.search(/\D/g)>=0){
+    return true
+  }
+}
+
+console.log((badpun(nums))!==false)
+// console.log((nums[nums.length-5]) === "-")
+// console.log((nums[nums.length-9]) === "-")
+// console.log((nums.includes("(") && !nums.includes(")") )|| (!nums.includes("(") && nums.includes(")") ))
+
+
+// console.log(((nums.match(/[0-9]/g).length===10) || (nums.match(/[0-9]/g).length===11) && nums[0]==="1")===false)
+
+// console.log(nums.search(/\D/g)>=0 && (nums[nums.length-5]) !== "-" && (nums[nums.length-9]) !== "-" )
+//  && (nums[nums.length-5]) !== "-" && (nums[nums.length-9]) !== ")" && (nums[nums.length-13]) !== "(" )
+
+// console.log(nums.search(/\D/g)>=0)
+// console.log(((nums[nums.length-5]) !== "-" && (nums[nums.length-9]) !== "-" )===false)
+
+}
+telephoneCheck("(555-555-5555");
